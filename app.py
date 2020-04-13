@@ -8,13 +8,13 @@ screen = display.set_mode((800, 600))
 
 # Window title and icon
 display.set_caption('Spaceinvaders')
-display.set_icon(image.load('ufo.png'))
+display.set_icon(image.load('images/ufo.png'))
 
 # Game run status
 DONE = False
 
 # Player
-player_img = image.load('player.png')
+player_img = image.load('images/player.png')
 player_x = 370
 player_y = 480
 player_speed = 0.3

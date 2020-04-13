@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Code Runner
+tempCodeRunnerFile.py
+
+# VsCode
+.vscode/
