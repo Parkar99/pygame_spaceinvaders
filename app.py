@@ -84,6 +84,12 @@ bullet_state = BulletState.READY
 
 score = 0
 
+# Font for displaying score
+game_font = font.SysFont('monospace', 18)
+game_over_font = font.SysFont('monospace', 28)
+
+is_game_over = False
+
 
 def reset_enemy(index):
     global enemies
@@ -183,6 +189,17 @@ def check_for_shoot_and_update_bullet(events):
             reset_bullet()
 
 
+def game_over():
+    global enemies, player_y
+
+    for enemy in enemies:
+        if enemy.y > player_y - 60:
+            # print('Game Over')
+            return True
+    
+    return False
+
+
 # Game Loop
 while not DONE:
     events = event.get()
@@ -192,6 +209,14 @@ while not DONE:
 
     screen.fill((0, 0, 0))
     screen.blit(screen_img, (-int((screen_img.get_width() - screen_x) / 2), -1))
+
+    if is_game_over:
+        label = game_over_font.render(f'Game Over! Final Score: {score}', 1, (255, 255, 255))
+        screen.blit(label, (screen_x // 4, screen_y // 4))
+        display.update()
+        continue
+
+    is_game_over = game_over()
 
     # Bullet Logic
     check_for_shoot_and_update_bullet(events)
@@ -214,20 +239,13 @@ while not DONE:
             score += 1
             reset_enemy(index)
             print(score)
-            if score % 10 == 0:
-                enemies.append(
-                    Enemy(
-                        enemy_img,
-                        random.randint(0, screen_x - 64),
-                        random.randint(0, 150),
-                        enemy_x_speed,
-                        enemy_y_speed,
-                        random.randint(0, 1),
-                    )
-                )
-
+            if score % 1 == 0:
                 for e in enemies:
                     e.x_speed += 0.1
                     e.y_speed += 0.2
+
+    label = game_font.render(f'Score: {score}', 1, (255, 255, 255))
+
+    screen.blit(label, (10, 10))
 
     display.update()
