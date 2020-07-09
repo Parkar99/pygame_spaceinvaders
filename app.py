@@ -194,9 +194,8 @@ def game_over():
 
     for enemy in enemies:
         if enemy.y > player_y - 60:
-            # print('Game Over')
             return True
-    
+
     return False
 
 
@@ -211,7 +210,9 @@ while not DONE:
     screen.blit(screen_img, (-int((screen_img.get_width() - screen_x) / 2), -1))
 
     if is_game_over:
-        label = game_over_font.render(f'Game Over! Final Score: {score}', 1, (255, 255, 255))
+        label = game_over_font.render(
+            f'Game Over! Final Score: {score}', 1, (255, 255, 255)
+        )
         screen.blit(label, (screen_x // 4, screen_y // 4))
         display.update()
         continue
@@ -238,7 +239,6 @@ while not DONE:
             reset_bullet()
             score += 1
             reset_enemy(index)
-            print(score)
             if score % 1 == 0:
                 for e in enemies:
                     e.x_speed += 0.1
